@@ -62,8 +62,12 @@ def find_first_clickable(driver, candidates, timeout=WAIT_TIMEOUT):
 @pytest.fixture
 def driver():
     options = webdriver.ChromeOptions()
+    options.add_argument("--headless") 
+    options.add_argument("--no-sandbox") 
+    options.add_argument("--disable-dev-shm-usage") 
+    options.add_argument("--window-size=1920,1080") 
+    
     drv = webdriver.Chrome(options=options)
-    drv.maximize_window()
     drv.get(BASE_URL)
     WebDriverWait(drv, WAIT_TIMEOUT).until(EC.presence_of_element_located(SEARCH_INPUT))
     yield drv
